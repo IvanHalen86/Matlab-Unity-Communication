@@ -3,6 +3,8 @@ This are simple script to make Matlab communicate with unity
 
 You can find the video tutorial at this link
 
+https://youtu.be/tz8WHs-rIf8
+
 IMPORTANT: in the public class ***** : MonoBehaviour
 
 Instead of the ***** write the name of the c sharp file. In my case it was Cylinder. Check in the object you created in unity which is
