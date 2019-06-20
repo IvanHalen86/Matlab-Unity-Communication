@@ -1,0 +1,45 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 using System.Collections;\
+using System.Collections.Generic;\
+using UnityEngine;\
+using System.Net;\uc0\u8232 using System.Net.Sockets;\u8232 using System.Linq;\u8232 using System;\u8232 using System.IO;\u8232 using System.Text;\
+\
+\
+public class Cylinder : MonoBehaviour\uc0\u8232 \{\u8232     // Set 2 floating numbers for the left and right directions\u8232     public float LEFT;\u8232     public float RIGHT;\u8232     public float UP;\u8232     public float DOWN;\u8232 \u8232     // initialize the communication with matlab\u8232     // Use this for initialization\u8232     TcpListener listener;\u8232     // the msg is the value that you put in the msg matrix in matlab\u8232     String msg;\u8232 \u8232     // Start is called before the first frame update\u8232     void Start()\u8232     \{\u8232         // set the floating valus for the directions. 1f is positive, while -1f is negative. \u8232         // each value correspondo to a direciton in the axix. for instance in the X the positive value is the right\u8232         // direction, while the negative value is the left\u8232         LEFT = 1f;\u8232         RIGHT = -1f;\u8232         UP = 1f;\u8232         DOWN = -1f;\u8232         // LISTEN TO MATLAB. Set up unity listening to matlab\u8232 \u8232         listener = new TcpListener(IPAddress.Parse("127.0.0.1"), 55001);\u8232         listener.Start();\u8232         print("is listening");\u8232 \u8232     \}\u8232 \u8232     // Update is called once per frame\u8232     void Update()\u8232     \{\u8232 \u8232 \u8232         if (!listener.Pending())\u8232         \{\u8232         \}\u8232         else\u8232         \{\u8232             // print the message that unity is listening.\u8232             print("socket comes");\u8232             TcpClient client = listener.AcceptTcpClient();\u8232             NetworkStream ns = client.GetStream();\u8232             StreamReader reader = new StreamReader(ns);\u8232             msg = reader.ReadToEnd();\u8232             print(msg);\u8232         \}\
+\
+        // this command allows to concatenate different if statement\
+        switch (msg.ToLower())\uc0\u8232         \{\
+            // set the cilinder movement case by case depending on the mtlab inputs\
+            case "2":\
+            transform.Translate(0f, UP * Time.deltaTime, 0f);\
+            break;\
+            case "-2":\
+            transform.Translate(0f, DOWN * Time.deltaTime, 0f);\
+            break;\
+            case "-1":\
+            transform.Translate(LEFT * Time.deltaTime,0f, 0f);\
+            break;\
+            case "1":\
+            transform.Translate(RIGHT * Time.deltaTime,0f, 0f);\
+            break;\
+            case "3":\
+            transform.Translate(RIGHT * Time.deltaTime, DOWN * Time.deltaTime, 0f); \
+            break;\
+            case "-3":\
+            transform.Translate(LEFT * Time.deltaTime, DOWN * Time.deltaTime, 0f);\
+            break;\
+            case "4":\
+            transform.Translate(RIGHT * Time.deltaTime, UP * Time.deltaTime, 0f); \
+            break;\
+            case "-4":\
+            transform.Translate(LEFT * Time.deltaTime, UP * Time.deltaTime, 0f);\
+            break;\
+            case "0":\uc0\u8232             transform.Translate(0f, 0f, 0f);\
+            break;\
+\uc0\u8232 \u8232         \}\u8232     \}\u8232 \}\u8232 \u8232 }
