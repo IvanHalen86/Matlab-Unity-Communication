@@ -12,4 +12,4 @@ Instead of the ***** write the name of the c sharp file. Check the name associat
 IMPORTANT 2: when you created the c sharp file in unity, you first press play in unity and then run the matlab code,
 otherwise it will not work.
 
-If you are interested only in the c sharp code that makes them communicate, you can find it in the "C_Sharp_Communication_Only" file.
+If you are interested only in the c sharp code that makes matlab and unity communicate, you can find it in the "C_Sharp_Communication_Only" file.
